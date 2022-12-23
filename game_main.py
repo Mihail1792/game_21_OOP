@@ -85,8 +85,8 @@ class Player(Game):
                 value_sum += Player.get_card(self, playing_cards)
                 if value_sum > 21:
                     perebor = f"Перебор {value_sum}"
-                    print(perebor)
-                    return perebor
+                    print(f'Сумма очков: {value_sum}\n')
+                    return "Перебор"
                 print(f'Сумма очков: {value_sum}\n')
             if player_input == 'n':
                 break
@@ -111,7 +111,7 @@ class Dealer(Player):
             if value_sum > 21:
                 perebor = f"Перебор {value_sum}"
                 print(perebor)
-                return perebor
+                return "Перебор"
             elif value_sum == 21:
                 break
             elif value_sum >= 17:
@@ -132,13 +132,18 @@ class BaseMixin:
             playing_cards = Game.get_playing_cards()
             Game.separator(player)
             a = player.get_result(player.get_card(playing_cards), player.bets(), playing_cards)
-            c = a[:2]
-            if c == "Пе":
+            # c = a[:7]
+            print(a)
+            if a == "Перебор":
                 print("Перебор, игрок проиграл")
                 continue
 
             Game.separator(dealer)
             b = dealer.get_result(dealer.get_card(playing_cards), dealer.bets(), playing_cards)
+
+            if b == "Перебор":
+                print("Перебор, Дилер проиграл")
+                continue
 
             if a > b:
                 print("Дилер победил")
