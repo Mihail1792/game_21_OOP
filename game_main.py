@@ -49,7 +49,7 @@ class Game:
         print(f'Баланс вашего счета: {self.money}')
         while self.money > 0:
             bet = Player.top_down_balance(
-                self, abs(int(input(f'{self.name} укажите сумму ставки: ')))
+                self, abs(int(input(f'{self.name}, укажите сумму ставки: ')))
             )
             if bet:
                 print(f"Ваша ставка: {bet}")
@@ -104,6 +104,7 @@ class Dealer(Player):
     def get_result(self, value, bet, playing_cards):
         card_sum = 1
         value_sum = value
+        result_dict = {}
         while card_sum != 5:
             card_sum += 1
             value_sum += Dealer.get_card(self, playing_cards)
@@ -131,10 +132,18 @@ class BaseMixin:
             playing_cards = Game.get_playing_cards()
             Game.separator(player)
             a = player.get_result(player.get_card(playing_cards), player.bets(), playing_cards)
+            c = a[:2]
+            if c == "Пе":
+                print("Перебор, игрок проиграл")
+                continue
+
             Game.separator(dealer)
             b = dealer.get_result(dealer.get_card(playing_cards), dealer.bets(), playing_cards)
+
             if a > b:
-                print("Игрок победил")
+                print("Дилер победил")
+            else:
+                print("Дилер победил")
 
 
 
@@ -148,6 +157,7 @@ player1 = BaseMixin()
 player1.new_game("Михаил")
 
 # прописать чтобы выдавало ответ кто победил и сколько денег заработал и сколько в банке денег
+# два туза вроде 21, как я помню, нужно сделать, а не 22
 
 # ************ Правила игры ************
 
