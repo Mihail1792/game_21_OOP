@@ -149,23 +149,9 @@ player1.new_game("Михаил")
 
 # прописать чтобы выдавало ответ кто победил и сколько денег заработал и сколько в банке денег
 
-# # база данных с статистикой игрока
-# player = Player(name=player_name)
-# player.get_result(player.get_card(), player.bets())
-# dealer = Dealer(name=dealer_name)
-# dealer.get_result(dealer.get_card(), dealer.bets())
-# player = Player("Mike")
-# player.get_result(player.get_card(), player.bets())
-# player_1 = Player("Kyzbass")
-# player_1.get_result(player_1.get_card(), player_1.bets())
-# player_3 = Player("Stason_Seltison")
-# player_3.get_result(player_3.get_card(), player_3.bets())
-# dealer = Dealer('Dealer_Bob')
-# dealer.get_result(dealer.get_card(), dealer.bets())
-
+# ************ Правила игры ************
 
 # Банкир в свою очередь не может остановится на 15(петля)и обязан остановиться на 17(казна)
-
 # Минимальная ставка 5$
 # раздаётся по одной карте каждому игроку. Нужно набрать 21 очко, но не больше, либо больше, чем у твоего противника
 # два туза - золотое очко. (при переборе туз идёт за одно очко по договорённости)
@@ -193,12 +179,3 @@ player1.new_game("Михаил")
 # Слово else, примененное в цикле for или while, проверяет, был ли произведен выход из цикла инструкцией break,
 # или же "естественным" образом. Блок инструкций внутри else выполнится только в том случае,
 # если выход из цикла произошел без помощи break.
-#
-# >>>
-# >>> for i in 'hello world':
-# ...     if i == 'a':
-# ...         break
-# ... else:
-# ...     print('Буквы a в строке нет')
-# ...
-# Буквы a в строке нет
