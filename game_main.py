@@ -79,12 +79,11 @@ class Player(Game):
         card_sum = 1
         value_sum = value
         while card_sum != 5:
-            player_input = input(f'Нужно дабавить карту {self.name} y/n?: ')
+            player_input = input(f'Нужно добавить карту {self.name} y/n?: ')
             if player_input == 'y':
                 card_sum += 1
                 value_sum += Player.get_card(self, playing_cards)
                 if value_sum > 21:
-                    perebor = f"Перебор {value_sum}"
                     print(f'Сумма очков: {value_sum}\n')
                     return "Перебор"
                 print(f'Сумма очков: {value_sum}\n')
@@ -104,7 +103,6 @@ class Dealer(Player):
     def get_result(self, value, bet, playing_cards):
         card_sum = 1
         value_sum = value
-        result_dict = {}
         while card_sum != 5:
             card_sum += 1
             value_sum += Dealer.get_card(self, playing_cards)
@@ -131,24 +129,27 @@ class BaseMixin:
         while player.money > 0:
             playing_cards = Game.get_playing_cards()
             Game.separator(player)
-            a = player.get_result(player.get_card(playing_cards), player.bets(), playing_cards)
-            # c = a[:7]
-            print(a)
-            if a == "Перебор":
+            player_result = player.get_result(player.get_card(playing_cards), player.bets(), playing_cards)
+            if player_result == "Перебор":
                 print("Перебор, игрок проиграл")
                 continue
 
             Game.separator(dealer)
-            b = dealer.get_result(dealer.get_card(playing_cards), dealer.bets(), playing_cards)
+            dealer_result = dealer.get_result(dealer.get_card(playing_cards), dealer.bets(), playing_cards)
 
-            if b == "Перебор":
+            if dealer_result == "Перебор":
                 print("Перебор, Дилер проиграл")
                 continue
 
-            if a > b:
-                print("Дилер победил")
+            if player_result > dealer_result:
+
+                print("================================")
+                print("Игрок победил")
             else:
+                print("================================")
                 print("Дилер победил")
+            # сделать переход денег с одного кошелька на другой при проигрыше и выигрыше
+            # обработать результат с ничьей, и ошибкой при вводе не инта при ставке
 
 
 
