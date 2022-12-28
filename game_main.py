@@ -20,7 +20,7 @@ class Game:
 
     def __init__(self, name):
         self.name = name
-        self._money = 100
+        self._money = 1000
         print(f"\n"'*******************'
               f"Добрейший вечерочек, {self.name}"
               f"*******************\n")
@@ -29,11 +29,11 @@ class Game:
         return self._money
 
     @staticmethod
-    def separator(instanse):
-        if isinstance(instanse, Dealer):
-            print(f"\n*************** Ход {instanse.name} ****************")
+    def separator(instance):
+        if isinstance(instance, Dealer):
+            print(f"\n*************** Ход {instance.name} ****************")
         else:
-            print(f"\n---------------- Ход {instanse.name} ----------------")
+            print(f"\n---------------- Ход {instance.name} ----------------")
 
     def get_card(self, playing_cards):
         """Метод, который рандомно выдаёт карты и показывает их номинал"""
@@ -63,7 +63,7 @@ class Game:
         self._money = self._money - bet
         return bet
 
-    def top_up_balance(self, howmany):
+    def top_up_balance(self, howmany: int):
         """Метод, который пополняет кошелёк"""
         self._money = self._money + howmany
         return howmany
@@ -129,7 +129,8 @@ class BaseMixin:
         while player.money > 0:
             playing_cards = Game.get_playing_cards()
             Game.separator(player)
-            player_result = player.get_result(player.get_card(playing_cards), player.bets(), playing_cards)
+            player_bet = player.bets()
+            player_result = player.get_result(player.get_card(playing_cards), player_bet, playing_cards)
             if player_result == "Перебор":
                 print("Перебор, игрок проиграл")
                 continue
@@ -142,10 +143,11 @@ class BaseMixin:
                 continue
 
             if player_result > dealer_result:
-
+                player.top_up_balance((int(player_bet)) * 2)
                 print("================================")
                 print("Игрок победил")
             else:
+                dealer.top_up_balance((int(player_bet)) * 2)
                 print("================================")
                 print("Дилер победил")
             # сделать переход денег с одного кошелька на другой при проигрыше и выигрыше
